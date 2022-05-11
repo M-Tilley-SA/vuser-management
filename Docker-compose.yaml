@@ -1,0 +1,27 @@
+version: '3'
+services:
+  vuser-frontend:
+    container_name: vuser-frontend
+    build: vuser-frontend
+    volumes:
+      - ./vuser-frontend/src:/opt/app/src
+      - ./vuser-frontend/package.json:/opt/package.json
+    ports:
+      - 8080:8080
+    networks:
+      - vuser-api
+  vuser-api:
+    container_name: vuser-api
+    build: vuser-api
+    volumes:
+      - ./vuser-api:/opt/app
+      - ./vuser-api/package.json:/opt/package.json
+    ports:
+      - '3000:3000'
+    networks:
+      - vuser-api
+
+networks:
+  vuser-api:
+    name: Vuser API
+    driver: bridge
