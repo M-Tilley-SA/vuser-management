@@ -1,7 +1,7 @@
 version: '3'
 services:
   vuser-frontend:
-    container_name: vuser-frontend
+    container_name: WebFrontend
     build: vuser-frontend
     volumes:
       - ./vuser-frontend/src:/opt/app/src
@@ -11,7 +11,7 @@ services:
     networks:
       - vuser-api
   vuser-api:
-    container_name: vuser-api
+    container_name: API
     build: vuser-api
     volumes:
       - ./vuser-api:/opt/app
