@@ -10,4 +10,4 @@ RUN npm install
 WORKDIR /opt/app
 COPY ./ .
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
