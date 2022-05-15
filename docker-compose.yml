@@ -16,8 +16,8 @@ services:
     env_file:
       - ./vuser-api/config/.env
     volumes:
-      - ./vuser-api:/opt/app
-      - ./vuser-api/package.json:/opt/package.json
+      - ./vuser-api:/api/app
+      - ./vuser-api/package.json:/api/package.json
     ports:
       - '3000:3000'
     networks:

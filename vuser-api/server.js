@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors')
 const port = 3000;
 const { connectToDb } = require('./db/client');
 // Config
@@ -11,6 +12,11 @@ const { connectToDb } = require('./db/client');
  */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
+/**
+ * use cors plugin to allow cross origin requests
+ */
+app.use(cors())
 /**
  * Routes
  * @api {post} /auth/
