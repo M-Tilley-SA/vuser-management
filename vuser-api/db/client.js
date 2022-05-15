@@ -1,4 +1,4 @@
-const mongoDbUrl = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}${process.env.MONGODB_CLUSTER_URL}${process.env.MONGODB_DEFAULT_DB}?retryWrites=true&w=majority`;
+const mongoDbUrl = `mongodb+srv://r3as0n:hmcwgGo5VnOKPkfJ@cluster0.igq05.mongodb.net/employees?retryWrites=true&w=majority`;
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const client = new MongoClient(mongoDbUrl, {
   useNewUrlParser: true,
