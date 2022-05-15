@@ -1,31 +1,60 @@
 const express = require('express');
 const router = express.Router();
+const {
+  client,
+  getAllUsers,
+  createUser,
+  getUser,
+  updateUser,
+  deleteUser,
+  deleteAllUsers,
+} = require('../db/client');
 
-// GET /users
-// Fetch all users
-router.get('/', (req, res) => {
-  res.send('GET /users');
-}),
-  // POST /:id
+// GET, POST /users
+router
+  // GET
+  // Fetch all users
+  .get('/', async (req, res) => {
+    const users = await getAllUsers().toArray();
+    res.status(200).json(users);
+  })
+  // POST /
   // Create a new user
-  router.post('/', (req, res) => {
-    res.send('POST /users');
+  .post( '/', async ( req, res ) => {
+    const userId = req.body.user_id;
+    const createdUser = await createUser( userId );
+    res.status(201).json(createdUser);
+  } )
+  // DELETE /
+  // Clean the Db
+  .delete('/',async (req, res) => {
+    const deleteResponse = await deleteAllUsers();
+    res.status(200).json(deleteResponse);
   });
 
-// GET /users/:id
-// Fetch a user by id
-router.get('/:id', (req, res) => {
-  res.send('GET /users/:id');
-}),
+// GET, PATCH, DELETE /users/:id
+router
+  // GET /users/:id
+  // Fetch a user by id
+  .get('/:id', async (req, res) => {
+    const userId = req.params.id;
+    const user = await getUser(userId);
+    res.status(200).json(user);
+  })
   // PATCH /:id
   // Update a user
-  router.patch('/:id', (req, res) => {
-    res.send('Got a PATCH request at /users/:id');
-  }),
+  .patch( '/:id', async ( req, res ) => {
+    const userId = req.params.id;
+    const employeeData = req.body.employee;
+    const user = await updateUser(userId, employeeData);
+    res.status(204).json(user);
+  })
   // DELETE /:id
   // Delete a user
-  router.delete('/:id', (req, res) => {
-    res.send('Got a DELETE request at /users/:id');
+  .delete('/:id',async (req, res) => {
+    const userId = req.params.id;
+    const user = await deleteUser(userId);
+    res.status(200).json(user);
   });
 
 module.exports = router;

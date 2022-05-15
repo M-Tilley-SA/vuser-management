@@ -13,6 +13,8 @@ services:
   vuser-api:
     container_name: API
     build: vuser-api
+    env_file:
+      - ./vuser-api/config/.env
     volumes:
       - ./vuser-api:/opt/app
       - ./vuser-api/package.json:/opt/package.json
