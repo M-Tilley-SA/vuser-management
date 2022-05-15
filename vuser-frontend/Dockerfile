@@ -1,13 +1,11 @@
-FROM node:16
+FROM node:lts-alpine
 
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-WORKDIR /opt/
-COPY ./package.json ./
-ENV PATH /opt/node_modules/.bin:$PATH
+WORKDIR /app
+COPY package*.json ./
 RUN npm config set network-timeout 600000 -g
 RUN npm install
-WORKDIR /opt/app
-COPY ./ .
 
-CMD ["npm", "run", "dev"]
+COPY . .
+
+EXPOSE 8080
+CMD ["npm", "run", "serve"]
