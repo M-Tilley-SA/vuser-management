@@ -1,0 +1,49 @@
+### Fetch all users
+GET http://localhost:3000/api/users/
+
+### Create a new user
+POST http://localhost:3000/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+  "user": {
+    "first_name": "Fred",
+    "last_name": "Blep",
+    "contact_number": "012 832 1122",
+    "email_address": "fred@gmail.com",
+    "date_of_birth": "03-03-1990",
+    "address": {
+      "street_address": "92 Red Rd",
+      "city": "Pretoria",
+      "postal_code": "1022",
+      "country": "South Africa"
+    },
+    "skills": [
+      {
+        "skill_name": "Blepping",
+        "years_experience": "20",
+        "skill_rating": "5"
+      }
+    ],
+    "user_id": "LR-7782"
+  }
+}
+
+### Get Single user
+GET http://localhost:3000/api/users/VC-SSSS HTTP/1.1
+
+### Update a user
+PATCH  http://localhost:3000/api/users/VC-SSSS HTTP/1.1
+content-type: application/json
+
+{
+  "user": {
+    "first_name": "John"
+  }
+}
+
+### Delete a user
+DELETE http://localhost:3000/api/users/VC-SSSS HTTP/1.1
+
+### Delete all users
+DELETE http://localhost:3000/api/users/ HTTP/1.1
