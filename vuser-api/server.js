@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors')
 const port = 3000;
-const { connectToDb } = require('./db/client');
+const { connectToDb } = require('./api/client');
 // Config
 
 /**

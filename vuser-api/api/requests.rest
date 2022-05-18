@@ -6,7 +6,27 @@ POST http://localhost:3000/api/users/ HTTP/1.1
 content-type: application/json
 
 {
-  "user_id": "VC-SSSS"
+  "user": {
+    "first_name": "Fred",
+    "last_name": "Blep",
+    "contact_number": "012 832 1122",
+    "email_address": "fred@gmail.com",
+    "date_of_birth": "03-03-1990",
+    "address": {
+      "street_address": "92 Red Rd",
+      "city": "Pretoria",
+      "postal_code": "1022",
+      "country": "South Africa"
+    },
+    "skills": [
+      {
+        "skill_name": "Blepping",
+        "years_experience": "20",
+        "skill_rating": "5"
+      }
+    ],
+    "user_id": "LR-7782"
+  }
 }
 
 ### Get Single user
@@ -17,7 +37,7 @@ PATCH  http://localhost:3000/api/users/VC-SSSS HTTP/1.1
 content-type: application/json
 
 {
-  "employee": {
+  "user": {
     "first_name": "John"
   }
 }

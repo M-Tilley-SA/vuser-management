@@ -30,36 +30,11 @@ function getAllUsers() {
  * @param {*} userId
  * @returns
  */
-function createUser(userId) {
+function createUser ( userObject ) {
   return client
     .db(defaultMongoDbName)
     .collection('users')
-    .insertOne({
-      first_name: 'Matthew',
-      last_name: 'Tilley',
-      contact_number: '082 233 1235',
-      email_address: 'matthew.tilley19@gmail.com',
-      date_of_birth: '22/03/1992',
-      address: {
-        street_address: '12 Freedom Rd',
-        city: 'Johannesburg',
-        postal_code: '2194',
-        country: 'South Africa',
-      },
-      skills: [
-        {
-          skill_name: 'Meme creation',
-          years_experience: '3',
-          skill_rating: 4,
-        },
-        {
-          skill_name: 'Troll',
-          years_experience: '30',
-          skill_rating: 5,
-        },
-      ],
-      user_id: userId,
-    });
+    .insertOne(userObject);
 }
 
 function getUser(userId) {
@@ -70,12 +45,13 @@ function getUser(userId) {
 }
 
 function updateUser(userId, employeeJsonData) {
-  console.log(userId, employeeJsonData);
+  // remove _id from payload to avoid MongoDB error
+  const { _id, ...user } = employeeJsonData;
   const filterQuery = {
     user_id: userId,
   };
   const updateDocument = {
-    $set: employeeJsonData,
+    $set: user,
   };
   return client
     .db(defaultMongoDbName)
