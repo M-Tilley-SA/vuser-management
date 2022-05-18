@@ -8,9 +8,21 @@ const {
   updateUser,
   deleteUser,
   deleteAllUsers,
-} = require('../db/client');
+} = require('../api/client');
 
-// GET, POST /users
+/**
+ * @api {get} /users Get all users
+ * @api {post} /users Create a new user
+ * @api {delete} /users Delete all users
+ * 
+ * @api {get} /users/:id Get a user
+ * @api {put} /users/:id Update a user
+ * @api {delete} /users/:id Delete a user
+ */
+
+/**
+ * users
+ */
 router
   // GET
   // Fetch all users
@@ -21,8 +33,8 @@ router
   // POST /
   // Create a new user
   .post( '/', async ( req, res ) => {
-    const userId = req.body.user_id;
-    const createdUser = await createUser( userId );
+    const userData = req.body.user;
+    const createdUser = await createUser( userData );
     res.status(201).json(createdUser);
   } )
   // DELETE /
@@ -32,7 +44,9 @@ router
     res.status(200).json(deleteResponse);
   });
 
-// GET, PATCH, DELETE /users/:id
+/**
+ * users/:id
+ */
 router
   // GET /users/:id
   // Fetch a user by id
@@ -45,8 +59,8 @@ router
   // Update a user
   .patch( '/:id', async ( req, res ) => {
     const userId = req.params.id;
-    const employeeData = req.body.employee;
-    const user = await updateUser(userId, employeeData);
+    const userData = req.body.user;
+    const user = await updateUser(userId, userData);
     res.status(204).json(user);
   })
   // DELETE /:id
