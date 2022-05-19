@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Frontend
-      run: docker build ./vuser-frontend --file Dockerfile --tag frontend:$(date +%s)
+      run: cd ./vuser-frontend && docker build . --file Dockerfile --tag frontend:$(date +%s)
     - name: Build the API
-      run: docker build ./vuser-api --file Dockerfile --tag api:$(date +%s)
+      run: cd ./vuser-api && docker build . --file Dockerfile --tag frontend:$(date +%s)
