@@ -19,11 +19,19 @@
         <router-view></router-view>
       </v-fade-transition>
     </v-main>
+    <confirm-dialog ref="confirm"></confirm-dialog>
   </v-app>
 </template>
 
 <script>
+import ConfirmDialog from '@/components/dialog/ConfirmDialog'
 export default {
   name: 'App',
+  components: {
+    ConfirmDialog
+  },
+  mounted() {
+    this.$root.$confirm = this.$refs.confirm.open
+  },
 };
 </script>
