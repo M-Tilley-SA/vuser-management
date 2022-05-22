@@ -16,58 +16,8 @@
             ></v-text-field>
           </v-sheet>
           <v-slide-y-transition class="py-0" group>
-            <v-list-item v-for="user in filteredUsers" :key="user._id">
-              <v-list-item-action>
-                <v-chip x-small color="primary">
-                  {{ user.user_id }}
-                </v-chip></v-list-item-action
-              >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ user.first_name }}
-                  {{ user.last_name }}</v-list-item-title
-                >
-
-                <v-list-item-subtitle>
-                  {{ user.email_address }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-flex>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        icon
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="goToUserDetail(user)"
-                      >
-                        <v-icon color="grey lighten-1">
-                          mdi-account-edit
-                        </v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Edit user details for: {{ user.first_name }}</span>
-                  </v-tooltip>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        icon
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="deleteUser(user)"
-                      >
-                        <v-icon color="red darken-1"> mdi-delete </v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Delete user: {{ user.first_name }}</span>
-                  </v-tooltip>
-                </v-flex>
-              </v-list-item-action>
-            </v-list-item>
+            <user-item v-for="user in filteredUsers" :key="user._id" :user="user">
+            </user-item>
             <v-list-item
               v-if="!filteredUsers.length"
               :key="filteredUsers.length"
@@ -82,16 +32,18 @@
 </template>
 
 <script>
+import UserItem from '@/components/users/listItems/UserItem.vue';
 import { mapActions, mapGetters } from 'vuex';
 export default {
+  components: {
+    UserItem
+  },
   data: () => ({
-    loading: false,
     search: '',
     dialog: false,
     selectedUser: null,
   }),
   created() {
-    this.loading = true;
     this.fetchUsers();
   },
   computed: {
@@ -113,19 +65,7 @@ export default {
   methods: {
     ...mapActions({
       fetchUsers: 'fetchUsers',
-      deleteUserFromStore: 'deleteUser',
     }),
-    goToUserDetail(user) {
-      this.$router.push({
-        name: 'singleUser',
-        params: {
-          id: user.user_id,
-        },
-      });
-    },
-    deleteUser(user) {
-      user && this.deleteUserFromStore(user);
-    },
   },
 };
 </script>
