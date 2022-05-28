@@ -30,7 +30,9 @@
                   </v-scroll-x-transition>
                 </v-btn>
               </template>
-              <span>{{ isEditing ? 'Cancel update' : 'Edit user details'}}</span>
+              <span>{{
+                isEditing ? 'Cancel update' : 'Edit user details'
+              }}</span>
             </v-tooltip>
           </v-card-title>
         </v-row>
@@ -427,12 +429,24 @@ export default {
       updateUserAction: 'updateUser',
     }),
     toggleEditing() {
-      this.isEditing = this.isEditing ? false : true;
-
-      if (this.isEditing) {
+      if (!this.isEditing) {
         this.tempEditForm = structuredClone(this.form);
+        this.isEditing = true;
       } else {
-        this.cancelUpdateUser();
+        this.$root
+          .$confirm(
+            'Cancel Update',
+            'Are you sure you want to cancel editing? All changes will be lost.',
+            {
+              color: 'warning',
+            }
+          )
+          .then((confirm) => {
+            if (confirm) {
+              this.cancelUpdateUser();
+              this.isEditing = false;
+            }
+          });
       }
     },
     save(date) {
@@ -442,8 +456,8 @@ export default {
       const formValid = await this.v$.$validate();
       if (!formValid) return;
 
-      await this.updateUserAction(this.form);
       this.isEditing = false;
+      await this.updateUserAction(this.form);
       this.$router.push('/');
     },
     async createUser() {
